@@ -46,7 +46,7 @@ export const register = async (req: Request, res: Response) => {
 
     // Insert user
     const [result] = await db.execute(
-      'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
+      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
       [name, email, passwordHash]
     ) as [ResultSetHeader, any];
 
@@ -103,7 +103,7 @@ export const login = async (req: Request, res: Response) => {
 
     const user = userRows[0];
 
-    const isValid = await verifyPassword(password, user.password_hash);
+    const isValid = await verifyPassword(password, user.password);
     if (!isValid) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
