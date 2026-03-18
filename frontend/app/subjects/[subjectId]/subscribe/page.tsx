@@ -212,7 +212,7 @@ export default function SubscribePage() {
           <div className="max-w-6xl mx-auto text-center">
             <div className="bg-white rounded-lg shadow p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Course Not Found</h2>
-              <p className="text-gray-600 mb-6">The course you're looking for doesn't exist.</p>
+              <p className="text-gray-600 mb-6">The course you&apos;re looking for doesn&apos;t exist.</p>
               <Link
                 href="/"
                 className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors"

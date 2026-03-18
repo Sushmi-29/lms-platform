@@ -119,7 +119,7 @@ export default function LandingPage() {
           <div className="text-gray-600 mb-10">Loading...</div>
         ) : filteredMyCourses.length === 0 ? (
           <div className="text-gray-600 mb-10">
-            You haven't subscribed to any courses yet.
+            You haven&apos;t subscribed to any courses yet.
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
