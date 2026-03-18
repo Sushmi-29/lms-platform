@@ -1,15 +1,17 @@
 import mysql from 'mysql2/promise';
 import { env } from './env';
-
 let connection: mysql.Connection;
-
 export const connectDB = async () => {
   try {
     connection = await mysql.createConnection({
       host: env.DB_HOST,
+      port: Number(env.DB_PORT),
       user: env.DB_USER,
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
+      ssl:{
+        rejectUnauthorized: false
+      }
     });
 
     console.log('Connected to MySQL database');
@@ -18,5 +20,4 @@ export const connectDB = async () => {
     process.exit(1);
   }
 };
-
 export const getDB = () => connection;
