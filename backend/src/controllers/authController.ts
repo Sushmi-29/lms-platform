@@ -18,6 +18,9 @@ export const register = async (req: Request, res: Response) => {
 
   const { name, email, password } = req.body;
 
+  // ✅ FIX: create username
+  const username = email;
+
   if (!name || !email || !password) {
     return res.status(400).json({
       message: 'Name, email, and password are required'
@@ -44,10 +47,10 @@ export const register = async (req: Request, res: Response) => {
     const passwordHash = await hashPassword(password);
     console.log("🔐 Password hashed");
 
-    // Insert user
+    // ✅ FIXED INSERT
     const [result] = await db.execute(
-      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-      [name, email, passwordHash]
+      'INSERT INTO users (username, name, email, password) VALUES (?, ?, ?, ?)',
+      [username, name, email, passwordHash]
     ) as [ResultSetHeader, any];
 
     console.log("✅ User inserted:", result);
