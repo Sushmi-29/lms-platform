@@ -16,7 +16,10 @@ import subscriptionRoutes from "./routes/subscription.routes";
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: [
+      "http://localhost:3001",
+      "lms-platform-one-inky.vercel.app"
+    ],
     credentials: true,
   })
 );
