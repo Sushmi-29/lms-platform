@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001",
-      "lms-platform-one-inky.vercel.app"
+      "https://lms-platform-one-inky.vercel.app"
     ],
     credentials: true,
   })
