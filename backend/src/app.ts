@@ -25,7 +25,9 @@ app.use(helmet());
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(requestLogger);
-
+app.get("/",(req,res)=>{
+  res.send("Backend is running");
+});
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
