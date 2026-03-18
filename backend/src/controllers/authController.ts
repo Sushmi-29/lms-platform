@@ -49,7 +49,7 @@ export const register = async (req: Request, res: Response) => {
 
     // ✅ FIXED INSERT
     const [result] = await db.execute(
-      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+      'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
       [name, email, passwordHash]
     ) as [ResultSetHeader, any];
 
