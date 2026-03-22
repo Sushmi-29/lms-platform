@@ -1,8 +1,12 @@
+
 import axios from "axios";
+
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
+
+
 
 apiClient.interceptors.request.use((config) => {
   const token =
@@ -28,3 +32,5 @@ apiClient.interceptors.response.use(
 
 export default apiClient;
 
+
+console.log("BASE URL:", process.env.NEXT_PUBLIC_API_URL);
