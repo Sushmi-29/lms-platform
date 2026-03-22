@@ -161,7 +161,7 @@ export default function SubscribePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-white text-gray-900 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="animate-pulse">
@@ -186,7 +186,7 @@ export default function SubscribePage() {
 
   if (error && !subject) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-white text-gray-900">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto text-center">
             <div className="bg-white rounded-lg shadow p-8">
@@ -232,7 +232,7 @@ export default function SubscribePage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-white text-gray-900 py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb */}

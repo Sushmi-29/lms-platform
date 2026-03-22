@@ -25,10 +25,21 @@ const getStoredAuth = () => {
   const storedUser = localStorage.getItem("user");
   const storedToken = localStorage.getItem("token");
 
-  return {
-    user: storedUser ? JSON.parse(storedUser) : null,
-    token: storedToken ? storedToken : null,
-  };
+  let parsedUser = null;
+
+try {
+  parsedUser =
+    storedUser && storedUser !== "undefined"
+      ? JSON.parse(storedUser)
+      : null;
+} catch (error) {
+  parsedUser = null;
+}
+
+return {
+  user: parsedUser,
+  token: storedToken ? storedToken : null,
+};
 };
 
 export const useAuthStore = create<AuthState>((set) => ({

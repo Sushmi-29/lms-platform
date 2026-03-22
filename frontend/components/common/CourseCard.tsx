@@ -22,7 +22,6 @@ export default function CourseCard({
   id,
   title,
   thumbnail,
-  youtube_url,
   rating,
   price,
   instructor,
@@ -31,7 +30,7 @@ export default function CourseCard({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { token } = useAuthStore();
-  
+
   const numericRating = rating ?? null;
   const ratingValue = Number(numericRating);
   const displayPrice =
@@ -45,7 +44,6 @@ export default function CourseCard({
 
   const handleCardClick = async () => {
     if (!token) {
-      // Redirect to login if not authenticated
       router.push("/auth/login");
       return;
     }
@@ -76,42 +74,64 @@ export default function CourseCard({
     <button
       onClick={handleCardClick}
       disabled={loading}
-      className="block group w-full text-left bg-white rounded-md shadow-sm hover:shadow-md transition duration-300 h-full flex flex-col disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-1 border border-gray-200"
+      className="group w-full text-left rounded-xl overflow-hidden 
+      bg-white 
+      border border-gray-200
+      shadow-sm hover:shadow-xl 
+      transition-all duration-300 
+      transform hover:-translate-y-1 
+      disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      <div className="relative bg-gray-100 overflow-hidden aspect-video rounded-t-md">
+      {/* Image */}
+      <div className="relative aspect-video overflow-hidden">
         <img
           src={thumbnail || FALLBACK_THUMBNAIL}
           alt={title}
-          className="w-full h-full object-cover rounded-t-md"
+          className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
         />
+
+        {/* Loading Overlay */}
         {loading && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
           </div>
         )}
+
+        {/* Gradient overlay (premium feel) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition" />
       </div>
 
-      <div className="p-3 flex-1 flex flex-col">
-        <h2 className="text-sm font-semibold text-gray-900 line-clamp-2">
+      {/* Content */}
+      <div className="p-4 flex flex-col gap-2">
+
+        {/* Title */}
+        <h2 className="text-sm md:text-base font-semibold text-gray-900 line-clamp-2">
           {title}
         </h2>
 
-        <p className="text-xs text-gray-500 mt-1">{displayInstructor}</p>
+        {/* Instructor */}
+        <p className="text-xs text-gray-500">
+          {displayInstructor}
+        </p>
 
-        <div className="flex items-center mt-2">
-          <span className="text-yellow-500 text-sm leading-none">
+        {/* Rating */}
+        <div className="flex items-center gap-1 text-xs">
+          <span className="text-yellow-500">
             {[...Array(5)].map((_, i) => (
               <span key={i}>{i < fullStars ? "⭐" : "☆"}</span>
             ))}
           </span>
-          <span className="ml-1 text-gray-600 text-xs">
+          <span className="text-gray-500">
             {!isNaN(ratingValue) ? ratingValue.toFixed(1) : "--"}
           </span>
         </div>
 
-        <p className="mt-auto pt-2 text-sm font-semibold text-gray-900">
-          {displayPrice}
-        </p>
+        {/* Price */}
+        <div className="mt-auto pt-2">
+          <span className="text-base font-bold text-gray-900">
+            {displayPrice}
+          </span>
+        </div>
       </div>
     </button>
   );

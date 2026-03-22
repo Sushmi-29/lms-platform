@@ -1,6 +1,8 @@
 import mysql from 'mysql2/promise';
 import { env } from './env';
+
 let connection: mysql.Connection;
+
 export const connectDB = async () => {
   try {
     connection = await mysql.createConnection({
@@ -9,15 +11,17 @@ export const connectDB = async () => {
       user: env.DB_USER,
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
-      ssl:{
+
+      ssl: {
         rejectUnauthorized: false
       }
     });
 
-    console.log('Connected to MySQL database');
+    console.log('✅ Connected to Aiven MySQL');
   } catch (error) {
-    console.error('Database connection failed:', error);
+    console.error('❌ Database connection failed:', error);
     process.exit(1);
   }
 };
+
 export const getDB = () => connection;

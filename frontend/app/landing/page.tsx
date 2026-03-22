@@ -90,28 +90,48 @@ export default function LandingPage() {
   }, [myCourses]);
 
   const filteredCourses = useMemo(() => {
-    console.log("Search:", searchQuery);
     const q = searchQuery.trim().toLowerCase();
-    const result =
-      q === ""
-        ? availableCourses
-        : availableCourses.filter((course) =>
-            course.title.toLowerCase().includes(q)
-          );
-    console.log("Filtered:", result);
-    return result;
+    return q === ""
+      ? availableCourses
+      : availableCourses.filter((course) =>
+          course.title.toLowerCase().includes(q)
+        );
   }, [availableCourses, searchQuery]);
 
   if (!isMounted) return null;
 
   return (
-    <div className="space-y-10 px-6 md:px-10 py-6 bg-white text-gray-900">
+    <div className="space-y-10 py-6 bg-white text-gray-900">
+
+      {/* Navbar */}
       <Navbar courses={availableCourses} setSearchQuery={setSearchQuery} />
+
+      {/* 🔥 NEW PREMIUM WELCOME SECTION */}
+      <section className="w-full px-6 md:px-10 py-4">
+
+<div className="flex flex-col gap-1">
+
+  <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
+    Welcome to{" "}
+    <span className="text-indigo-600 font-bold">
+      EduNova
+    </span>
+  </h1>
+
+  <p className="text-gray-500 text-sm md:text-base">
+    Build your future with industry-ready skills 🚀
+  </p>
+
+</div>
+
+</section>
+
+      {/* Hero */}
       <HeroSlider />
 
       {/* Courses */}
       <section>
-        <h2 id="my-courses" className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 id="my-courses" className="text-lg md:text-xl font-semibold mb-4 text-gray-900 pl-2 md:pl-4">
           My Courses
         </h2>
 
@@ -124,24 +144,12 @@ export default function LandingPage() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
             {filteredMyCourses.map((subject) => (
-              <CourseCard
-                key={subject.id}
-                id={subject.id}
-                title={subject.title}
-                description={subject.description}
-                thumbnail={subject.thumbnail}
-                rating={subject.rating}
-                price={subject.price}
-                instructor={subject.instructor}
-              />
+              <CourseCard key={subject.id} {...subject} />
             ))}
           </div>
         )}
 
-        <h2
-          id="available-courses"
-          className="text-lg font-semibold text-gray-900 mb-4"
-        >
+        <h2 id="available-courses" className="text-xl md:text-2xl font-semibold text-gray-900 mb-4 pl-2 md:pl-4">
           Available Courses
         </h2>
 
@@ -150,37 +158,24 @@ export default function LandingPage() {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="bg-white border border-gray-200 rounded-md overflow-hidden animate-pulse shadow-sm"
+                className="bg-white border rounded-md animate-pulse"
               >
                 <div className="aspect-video bg-gray-200" />
                 <div className="p-4 space-y-3">
                   <div className="h-4 bg-gray-200 rounded w-3/4" />
                   <div className="h-3 bg-gray-200 rounded w-1/2" />
-                  <div className="h-3 bg-gray-200 rounded w-1/4" />
-                  <div className="h-4 bg-gray-200 rounded w-1/3" />
                 </div>
               </div>
             ))}
           </div>
         ) : filteredCourses.length === 0 ? (
-          <div className="text-center py-16 bg-white border border-gray-200 rounded-md shadow-sm">
-            <p className="text-gray-600 text-lg">
-              No courses found.
-            </p>
+          <div className="text-center py-16 border rounded-md shadow-sm">
+            <p className="text-gray-600 text-lg">No courses found.</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredCourses.map((subject) => (
-              <CourseCard
-                key={subject.id}
-                id={subject.id}
-                title={subject.title}
-                description={subject.description}
-                thumbnail={subject.thumbnail}
-                rating={subject.rating}
-                price={subject.price}
-                instructor={subject.instructor}
-              />
+              <CourseCard key={subject.id} {...subject} />
             ))}
           </div>
         )}
@@ -188,4 +183,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
