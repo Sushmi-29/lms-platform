@@ -36,8 +36,10 @@ app.use('/api/sections', sectionRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/health', healthRoutes);
+
 app.use("/api/subscriptions", subscriptionRoutes);
 
 app.use(errorHandler);
 
 export default app;
+console.log("health route loaded");
