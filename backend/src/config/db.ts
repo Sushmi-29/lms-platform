@@ -11,11 +11,14 @@ export const connectDB = async () => {
       user: env.DB_USER,
       password: env.DB_PASSWORD,
       database: env.DB_NAME,
-
-      ssl: {
-        rejectUnauthorized: false
-      }
     });
+
+    console.log("DB CONFIG:", {
+  host: env.DB_HOST,
+  port: env.DB_PORT,
+  user: env.DB_USER,
+  database: env.DB_NAME
+});
 
     console.log('✅ Connected to Aiven MySQL');
   } catch (error) {
