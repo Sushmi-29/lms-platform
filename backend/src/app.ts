@@ -16,7 +16,8 @@ import subscriptionRoutes from "./routes/subscription.routes";
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000",
+    "https://lms-platform-zeta-ecru.vercel.app" ],
     credentials: true
   })
 );
