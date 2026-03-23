@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { connection } from "../../config/db";
+import bcrypt from "bcrypt";
 
 const router = Router();
 
@@ -22,9 +23,12 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    // 🔐 Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     await connection.execute(
       "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
-      [name, email, password]
+      [name, email, hashedPassword]
     );
 
     res.json({ message: "User registered successfully" });
@@ -51,9 +55,15 @@ router.post("/login", async (req, res) => {
 
     const user = rows[0];
 
-    if (user.password_hash !== password) {
+    // 🔐 Compare hashed password
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+
+    if (!isMatch) {
       return res.status(400).json({ message: "Invalid password" });
     }
+
+    // ❌ Remove password before sending response
+    delete user.password_hash;
 
     res.json({
       user,
