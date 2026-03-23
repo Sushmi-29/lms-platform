@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
     }
 
     await connection.execute(
-      "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+      "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
       [name, email, password]
     );
 
@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
 
     const user = rows[0];
 
-    if (user.password !== password) {
+    if (user.password_hash !== password) {
       return res.status(400).json({ message: "Invalid password" });
     }
 
